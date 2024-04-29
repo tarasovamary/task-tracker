@@ -1,7 +1,8 @@
 @import '../../../../styles/constants.scss';
+@import '../../../../styles/placeholders.scss';
 
 .wrapper {
-    padding: 15px;
+  padding: 15px;
 }
 .content {
   background-color: $color-header;
@@ -12,7 +13,7 @@
 }
 
 .tasks_title {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .task_header {
@@ -28,26 +29,34 @@
 }
 
 .tasks_headers {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .header {
+    @extend %transition;
+    &:hover {
+      cursor: pointer;
+      background-color: $color-bg-hover;
+    }
+  }
 }
 
 .tasks_headers > div {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-left: 1px solid $color-border;
-    min-height: 35px;
-    border-bottom: 2px solid $color-border;
-    color: $color-text-additional;
-    font-weight: 300;
-  }
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid $color-border;
+  min-height: 35px;
+  border-bottom: 2px solid $color-border;
+  color: $color-text-additional;
+  font-weight: 300;
+}
 
-  .tasks_headers > div:first-child {
-    flex-basis: 30%;
-    border-left: none;
-    justify-content: start;
-    padding-left: 12px;
-  }
+.tasks_headers > div:first-child {
+  flex-basis: 30%;
+  border-left: none;
+  justify-content: start;
+  padding-left: 12px;
+}

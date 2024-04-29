@@ -8,8 +8,26 @@
     <!-- Headers -->
     <div class="tasks_headers">
       <div class="header">Title</div>
-      <div class="header">Reporter</div>
-      <div class="header">Deadline</div>
+      <div
+        class="header"
+        (click)="sortTasksByReporter()">
+        Reporter
+        @if (reporterSortOrder === 'asc') {
+          <mat-icon>expand_less</mat-icon>
+        } @else if (reporterSortOrder === 'desc') {
+          <mat-icon>expand_more</mat-icon>
+        }
+      </div>
+      <div
+        class="header"
+        (click)="sortTasksByDate()">
+        Deadline
+        @if (dateSortOrder === 'asc') {
+          <mat-icon>expand_less</mat-icon>
+        } @else if (dateSortOrder === 'desc') {
+          <mat-icon>expand_more</mat-icon>
+        }
+      </div>
       <div class="header">Priority</div>
       <div class="header">Status</div>
     </div>
