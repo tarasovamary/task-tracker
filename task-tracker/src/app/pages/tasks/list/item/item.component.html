@@ -1,7 +1,11 @@
 @if (task) {
   <div class="item">
     <a href="">
-      <div class="item_content">
+      <div
+        class="item_content"
+        [ngClass]="{
+          status_done: task.status == 'done'
+        }">
         <div class="item_name">{{ task.name }}</div>
         <div class="item_reporter">{{ task.reporter }}</div>
         <div class="item_deadline">
@@ -25,7 +29,9 @@
             [ngStyle]="{ color: (task.status | statusInfo).color }"
             >{{ (task.status | statusInfo).icon }}</mat-icon
           >
-          <p class="status_title">{{ (task.status | statusInfo).text }}</p>
+          <p class="status_title">
+            {{ (task.status | statusInfo).text }}
+          </p>
         </div>
       </div>
     </a>
