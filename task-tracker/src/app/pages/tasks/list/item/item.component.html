@@ -1,11 +1,33 @@
-<div class="item">
-  <a href="">
-    <div class="item_content">
-      <div class="item_name">{{ task?.name }}</div>
-      <div class="item_reporter">{{ task?.reporter }}</div>
-      <div class="item_deadline">{{ task?.deadline }}</div>
-      <div class="item_priority">{{ task?.priority }}</div>
-      <div class="item_status">{{ task?.status }}</div>
-    </div>
-  </a>
-</div>
+@if (task) {
+  <div class="item">
+    <a href="">
+      <div class="item_content">
+        <div class="item_name">{{ task.name }}</div>
+        <div class="item_reporter">{{ task.reporter }}</div>
+        <div class="item_deadline">
+          <p class="deadline_title">
+            {{ task.deadline | date: 'MMMM dd, yyyy' }}
+          </p>
+        </div>
+        <div class="item_priority">
+          <mat-icon
+            class="priority_icon material-symbols-outlined"
+            [ngStyle]="{ color: (task.priority | priorityInfo).color }"
+            >{{ (task.priority | priorityInfo).icon }}</mat-icon
+          >
+          <p class="priority_title">
+            {{ (task.priority | priorityInfo).text }}
+          </p>
+        </div>
+        <div class="item_status">
+          <mat-icon
+            class="status_icon material-symbols-outlined"
+            [ngStyle]="{ color: (task.status | statusInfo).color }"
+            >{{ (task.status | statusInfo).icon }}</mat-icon
+          >
+          <p class="status_title">{{ (task.status | statusInfo).text }}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+}

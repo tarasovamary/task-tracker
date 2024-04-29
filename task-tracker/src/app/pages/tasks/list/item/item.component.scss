@@ -45,3 +45,29 @@
     background-color: $color-bg-hover;
   }
 }
+
+.item_status,
+.item_priority {
+  .status_icon,
+  .priority_icon {
+    border-radius: 100%;
+    padding-right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-text;
+  }
+
+  .material-symbols-outlined {
+    font-variation-settings:
+      'wght' 300,
+      'opsz' 20;
+  }
+}
+
+.status_title,
+.priority_title,
+.deadline_title {
+  font-size: 1.4rem;
+  font-weight: 300;
+}
