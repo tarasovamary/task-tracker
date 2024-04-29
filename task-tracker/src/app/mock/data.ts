@@ -3,7 +3,7 @@ import { ITask } from '../core/models/task.model';
 export const mockTasks: ITask[] = [
   {
     name: 'Create homepage design',
-    deadline: '2024-05-01',
+    deadline: '2024-03-01',
     reporter: 'John Doe',
     status: 'to_do',
     priority: 'high',
@@ -38,7 +38,7 @@ export const mockTasks: ITask[] = [
   },
   {
     name: 'Optimize database queries',
-    deadline: '2024-05-05',
+    deadline: '2024-04-05',
     reporter: 'Jessica Lee',
     status: 'to_do',
     priority: 'high',

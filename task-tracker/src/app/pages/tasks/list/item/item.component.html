@@ -9,7 +9,9 @@
         <div class="item_name">{{ task.name }}</div>
         <div class="item_reporter">{{ task.reporter }}</div>
         <div class="item_deadline">
-          <p class="deadline_title">
+          <p
+            class="deadline_title"
+            [ngClass]="{overdue: getOverdue(task.deadline)}">
             {{ task.deadline | date: 'MMMM dd, yyyy' }}
           </p>
         </div>

@@ -19,4 +19,11 @@ export class ItemComponent {
   constructor() {
     this.task = null;
   }
+
+  getOverdue(deadline: string): Boolean {
+    const deadlineDate = new Date(deadline);
+    const currentDate = new Date();
+
+    return deadlineDate < currentDate;
+  }
 }
