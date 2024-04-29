@@ -1,6 +1,9 @@
 @if (task) {
-  <div class="item">
-    <a href="">
+  <div
+    class="item"
+    [id]="'task-' + task.id">
+    <a
+    [routerLink]="[task.id]">
       <div
         class="item_content"
         [ngClass]="{

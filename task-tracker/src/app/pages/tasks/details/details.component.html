@@ -1,0 +1,56 @@
+<div class="wrapper">
+  <div class="content">
+    @if (task) {
+      <!-- Title -->
+      <div class="task_name">
+        {{ task.name }}
+      </div>
+
+      <!-- Status -->
+      <div class="task_status row">
+        <p>Status</p>
+        <mat-icon
+          class="status_icon material-symbols-outlined"
+          [ngStyle]="{ color: (task.status | statusInfo).color }"
+          >{{ (task.status | statusInfo).icon }}</mat-icon
+        >
+        <p class="status_title">
+          {{ (task.status | statusInfo).text }}
+        </p>
+      </div>
+
+      <!-- Reporter -->
+      <div class="task_info">
+        <div class="task_reporter row">
+          <p>Reporter</p>
+          <p>{{ task.reporter }}</p>
+        </div>
+
+        <!-- Type -->
+        <div class="task_type row">
+          <p>Type</p>
+          <p>Task</p>
+        </div>
+
+        <!-- Deadline -->
+        <div class="task_deadline row">
+          <p>Deadline</p>
+          <p [ngClass]="{ overdue: getOverdue(task.deadline) }">{{ task.deadline | date: 'MMMM dd, yyyy' }}</p>
+        </div>
+
+        <!-- Priority -->
+        <div class="task_priority row">
+          <p>Priority</p>
+          <mat-icon
+            class="priority_icon material-symbols-outlined"
+            [ngStyle]="{ color: (task.priority | priorityInfo).color }"
+            >{{ (task.priority | priorityInfo).icon }}</mat-icon
+          >
+          <p class="priority_title">
+            {{ (task.priority | priorityInfo).text }}
+          </p>
+        </div>
+      </div>
+    }
+  </div>
+</div>
