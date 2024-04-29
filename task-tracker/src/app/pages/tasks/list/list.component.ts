@@ -15,40 +15,61 @@ import { ItemComponent } from './item/item.component';
 })
 export class ListComponent {
   tasks: ITask[] = mockTasks;
-  reporterSortOrder!: 'asc' | 'desc';
-  dateSortOrder!: 'asc' | 'desc';
+  sortOrder: { [key: string]: 'asc' | 'desc' } = {
+    reporter: 'asc',
+    date: 'asc',
+    status: 'asc',
+    priority: 'asc',
+  };
+  currentSortField: string | null = null;
 
-  sortTasksByDate() {
-    this.toggleSortOrder('date');
+  constructor() {}
+
+  sortTasksBy(field: string): void {
+    this.toggleSortOrder(field);
 
     this.tasks.sort((a, b) => {
-      const dateA = new Date(a.deadline).getTime();
-      const dateB = new Date(b.deadline).getTime();
-      return this.dateSortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+      let valueA, valueB;
+
+      switch (field) {
+        case 'date':
+          valueA = new Date(a.deadline).getTime();
+          valueB = new Date(b.deadline).getTime();
+          break;
+        case 'reporter':
+          valueA = a.reporter.split(' ')[0].toLowerCase();
+          valueB = b.reporter.split(' ')[0].toLowerCase();
+          break;
+        case 'status':
+          const statusOrder = ['to_do', 'in_progress', 'done'];
+          valueA = statusOrder.indexOf(a.status);
+          valueB = statusOrder.indexOf(b.status);
+          break;
+        case 'priority':
+          const priorityOrder = ['low', 'medium', 'high'];
+          valueA = priorityOrder.indexOf(a.priority);
+          valueB = priorityOrder.indexOf(b.priority);
+          break;
+        default:
+          return 0;
+      }
+
+      return this.sortOrder[field] === 'asc'
+        ? valueA < valueB
+          ? -1
+          : valueA > valueB
+            ? 1
+            : 0
+        : valueB < valueA
+          ? -1
+          : valueB > valueA
+            ? 1
+            : 0;
     });
   }
 
-  sortTasksByReporter() {
-    this.toggleSortOrder('reporter');
-
-    this.tasks.sort((a, b) => {
-      const reporterA = a.reporter.toLowerCase();
-      const reporterB = b.reporter.toLowerCase();
-      if (reporterA < reporterB) {
-        return this.reporterSortOrder === 'asc' ? -1 : 1;
-      }
-      if (reporterA > reporterB) {
-        return this.reporterSortOrder === 'asc' ? 1 : -1;
-      }
-      return 0;
-    });
-  }
-
-  toggleSortOrder(sortBy: 'date' | 'reporter' | 'status'): void {
-    if (sortBy === 'date') {
-      this.dateSortOrder = this.dateSortOrder === 'asc' ? 'desc' : 'asc';
-    } else if (sortBy === 'reporter') {
-      this.reporterSortOrder = this.reporterSortOrder === 'asc' ? 'desc' : 'asc';
-    }
+  toggleSortOrder(field: string): void {
+    this.sortOrder[field] = this.sortOrder[field] === 'asc' ? 'desc' : 'asc';
+    this.currentSortField = field;
   }
 }

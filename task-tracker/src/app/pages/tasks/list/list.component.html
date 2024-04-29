@@ -8,28 +8,60 @@
     <!-- Headers -->
     <div class="tasks_headers">
       <div class="header">Title</div>
+      <!-- Reporter -->
       <div
         class="header"
-        (click)="sortTasksByReporter()">
+        (click)="sortTasksBy('reporter')">
         Reporter
-        @if (reporterSortOrder === 'asc') {
-          <mat-icon>expand_less</mat-icon>
-        } @else if (reporterSortOrder === 'desc') {
-          <mat-icon>expand_more</mat-icon>
+        @if (currentSortField === 'reporter') {
+          @if (sortOrder['reporter'] === 'asc') {
+            <mat-icon>expand_less</mat-icon>
+          } @else if (sortOrder['reporter'] === 'desc') {
+            <mat-icon>expand_more</mat-icon>
+          }
         }
       </div>
+
+      <!-- Deadline -->
       <div
         class="header"
-        (click)="sortTasksByDate()">
+        (click)="sortTasksBy('date')">
         Deadline
-        @if (dateSortOrder === 'asc') {
-          <mat-icon>expand_less</mat-icon>
-        } @else if (dateSortOrder === 'desc') {
-          <mat-icon>expand_more</mat-icon>
+        @if (currentSortField === 'date') {
+          @if (sortOrder['date'] === 'asc') {
+            <mat-icon>expand_less</mat-icon>
+          } @else if (sortOrder['date'] === 'desc') {
+            <mat-icon>expand_more</mat-icon>
+          }
         }
       </div>
-      <div class="header">Priority</div>
-      <div class="header">Status</div>
+      <!-- Priority -->
+      <div
+        class="header"
+        (click)="sortTasksBy('priority')">
+        Priority
+        @if (currentSortField === 'priority') {
+          @if (sortOrder['priority'] === 'asc') {
+            <mat-icon>expand_less</mat-icon>
+          } @else if (sortOrder['priority'] === 'desc') {
+            <mat-icon>expand_more</mat-icon>
+          }
+        }
+      </div>
+
+      <!-- Status -->
+      <div
+        class="header"
+        (click)="sortTasksBy('status')">
+        Status
+        @if (currentSortField === 'status') {
+          @if (sortOrder['status'] === 'asc') {
+            <mat-icon>expand_less</mat-icon>
+          } @else if (sortOrder['status'] === 'desc') {
+            <mat-icon>expand_more</mat-icon>
+          }
+        }
+      </div>
     </div>
 
     <!-- List of Tasks -->
