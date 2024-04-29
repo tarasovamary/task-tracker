@@ -1,1 +1,29 @@
+@import './styles/constants.scss';
+@import './styles/placeholders.scss';
 
+html {
+  font-size: 10px;
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+body {
+  @extend %font-prim;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: $color-text;
+  background-color: $color-background;
+  margin: 0;
+}
+
+h1 {
+    font-size: 2.4rem;
+    margin: 0;
+  }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
