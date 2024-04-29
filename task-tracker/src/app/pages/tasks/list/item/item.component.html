@@ -6,15 +6,19 @@
         [ngClass]="{
           status_done: task.status == 'done'
         }">
+        <!-- Task Name -->
         <div class="item_name">{{ task.name }}</div>
+        <!-- Reporter -->
         <div class="item_reporter">{{ task.reporter }}</div>
+        <!-- Deadline -->
         <div class="item_deadline">
           <p
             class="deadline_title"
-            [ngClass]="{overdue: getOverdue(task.deadline)}">
+            [ngClass]="{ overdue: getOverdue(task.deadline) }">
             {{ task.deadline | date: 'MMMM dd, yyyy' }}
           </p>
         </div>
+        <!-- Priority -->
         <div class="item_priority">
           <mat-icon
             class="priority_icon material-symbols-outlined"
@@ -25,6 +29,7 @@
             {{ (task.priority | priorityInfo).text }}
           </p>
         </div>
+        <!-- Status -->
         <div class="item_status">
           <mat-icon
             class="status_icon material-symbols-outlined"

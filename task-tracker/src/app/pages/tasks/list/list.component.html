@@ -1,5 +1,22 @@
-<div class="content">
-  @for (task of tasks; track $index) {
-    <app-item [task]="task"></app-item>
-  }
+<div class="wrapper">
+  <div class="tasks_title">
+    <h2 class="task_header">Tasks</h2>
+    <p class="task_count">{{ tasks.length }} tasks</p>
+  </div>
+
+  <div class="content">
+    <!-- Headers -->
+    <div class="tasks_headers">
+      <div class="header">Title</div>
+      <div class="header">Reporter</div>
+      <div class="header">Deadline</div>
+      <div class="header">Priority</div>
+      <div class="header">Status</div>
+    </div>
+
+    <!-- List of Tasks -->
+    @for (task of tasks; track $index) {
+      <app-item [task]="task"></app-item>
+    }
+  </div>
 </div>
