@@ -1,0 +1,47 @@
+@import '../../../../../styles/constants.scss';
+@import '../../../../../styles/placeholders.scss';
+
+.item_content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 50px;
+  border-bottom: 1px solid $color-border;
+}
+
+.item_content > div {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid $color-border;
+  min-height: 50px;
+}
+
+.item_content > div:first-child {
+  flex-basis: 30%;
+  border-left: none;
+  justify-content: start;
+  padding-left: 12px;
+  font-weight: 500;
+}
+
+.item {
+  a {
+    text-decoration: none;
+    color: $color-text;
+  }
+
+  a:hover {
+    color: $color-text;
+  }
+
+  a:active {
+    color: $color-text;
+  }
+  @extend %transition;
+  &:hover {
+    background-color: $color-bg-hover;
+  }
+}

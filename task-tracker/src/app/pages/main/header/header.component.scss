@@ -44,7 +44,11 @@
   flex-direction: row;
   gap: 5px;
   padding: 9px 17px;
+
   font-size: 1.6rem;
+  font-weight: 600;
+  background-color: $color-bg-button;
+
   border-radius: 22px;
   border: none;
   cursor: pointer;
