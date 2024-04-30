@@ -4,6 +4,13 @@
 .wrapper {
   padding: 15px;
 }
+
+.list_headaer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .content {
   background-color: $color-header;
   box-shadow:
@@ -60,3 +67,47 @@
   justify-content: start;
   padding-left: 12px;
 }
+
+.filter_button {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 5px;
+  padding: 9px 17px;
+
+  font-size: 1.6rem;
+  font-weight: 600;
+  background-color: $color-bg-button;
+
+  border-radius: 22px;
+  border: none;
+  cursor: pointer;
+  @extend %font-prim;
+
+  &:hover {
+    border: 1px solid $color-text;
+  }
+}
+::ng-deep .mat-mdc-outlined-button {
+  .mat-icon {
+    font-size: 2rem !important;
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+}
+
+::ng-deep .mat-mdc-menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px !important;
+}
+
+.menu_button {
+  display: flex;
+  justify-content: start;
+}
+
+.icon_active {
+    color: rgb(54, 188, 255);
+} 

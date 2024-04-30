@@ -1,6 +1,8 @@
 import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { ITask } from 'src/app/core/models/task.model';
 import { mockTasks } from 'src/app/mock/data';
 import { ItemComponent } from './item/item.component';
@@ -8,13 +10,16 @@ import { ItemComponent } from './item/item.component';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [ItemComponent, NgFor, MatIconModule],
+  imports: [ItemComponent, NgFor, MatIconModule, MatMenuModule, MatButtonModule],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent {
   tasks: ITask[] = mockTasks;
+  originalTasks: ITask[] = [...this.tasks];
+  filterStatus: string = 'reset';
+
   sortOrder: { [key: string]: 'asc' | 'desc' } = {
     reporter: 'asc',
     date: 'asc',
@@ -71,5 +76,16 @@ export class ListComponent {
   toggleSortOrder(field: string): void {
     this.sortOrder[field] = this.sortOrder[field] === 'asc' ? 'desc' : 'asc';
     this.currentSortField = field;
+  }
+
+  filterTasks(status: string): void {
+    this.filterStatus = status;
+    if (status === 'done') {
+      this.tasks = this.originalTasks.filter((task) => task.status === 'done');
+    } else if (status === 'undone') {
+      this.tasks = this.originalTasks.filter((task) => task.status !== 'done');
+    } else if (status === 'reset') {
+      this.tasks = this.originalTasks;
+    }
   }
 }

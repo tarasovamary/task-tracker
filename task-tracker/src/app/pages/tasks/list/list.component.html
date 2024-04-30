@@ -1,7 +1,56 @@
 <div class="wrapper">
-  <div class="tasks_title">
-    <h2 class="task_header">Tasks</h2>
-    <p class="task_count">{{ tasks.length }} tasks</p>
+  <div class="list_headaer">
+    <div class="tasks_title">
+      <h2 class="task_header">Tasks</h2>
+      <p class="task_count">{{ tasks.length }} tasks</p>
+    </div>
+    <button
+      mat-button
+      [matMenuTriggerFor]="menu"
+      class="filter_button">
+      Filter
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <!-- Reset filter -->
+      <button
+        class="menu_button"
+        mat-stroked-button
+        (click)="filterTasks('reset')">
+        <span class="name">Reset filter</span>
+        @if (filterStatus === 'reset') {
+            <mat-icon class="icon_active material-symbols-outlined">check</mat-icon>
+          } @else {
+            <mat-icon class="icon material-symbols-outlined">check_circle</mat-icon>
+          }
+      </button>
+
+      <!-- Completed tasks -->
+      <button
+        class="menu_button"
+        mat-stroked-button
+        (click)="filterTasks('done')">
+        @if (filterStatus === 'done') {
+            <mat-icon class="icon_active material-symbols-outlined">check</mat-icon>
+          } @else {
+            <mat-icon class="icon material-symbols-outlined">check_circle</mat-icon>
+          }
+        <span class="name">Completed tasks</span>
+      </button>
+
+      <!-- Uncompleted tasks -->
+      <button
+        class="menu_button"
+        mat-stroked-button
+        (click)="filterTasks('undone')">
+        @if (filterStatus === 'undone') {
+          <mat-icon class="icon_active material-symbols-outlined">check</mat-icon>
+        } @else {
+          <mat-icon class="icon material-symbols-outlined">check_circle</mat-icon>
+        }
+        <span class="name">Uncompleted tasks</span>
+      </button>
+    </mat-menu>
   </div>
 
   <div class="content">
