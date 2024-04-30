@@ -53,8 +53,9 @@
   border: none;
   cursor: pointer;
   @extend %font-prim;
+  @extend %transition;
 
   &:hover {
-    border: 1px solid $color-text;
+    transform: scale(1.1);
   }
 }

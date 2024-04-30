@@ -2,17 +2,23 @@
   <div
     class="item"
     [id]="'task-' + task.id">
-    <a
-    [routerLink]="[task.id]">
+    <a [routerLink]="[task.id]">
       <div
         class="item_content"
         [ngClass]="{
           status_done: task.status == 'done'
         }">
         <!-- Task Name -->
-        <div class="item_name">{{ task.name }}</div>
+        <div class="item_name">
+          {{ task.name }}
+        </div>
         <!-- Reporter -->
-        <div class="item_reporter">{{ task.reporter }}</div>
+        <div class="item_reporter">
+          <div class="user_bage">
+            {{ task.reporter.charAt(0) }}{{ task.reporter.charAt(task.reporter.indexOf(' ') + 1) }}
+          </div>
+          {{ task.reporter }}
+        </div>
         <!-- Deadline -->
         <div class="item_deadline">
           <p
@@ -45,5 +51,34 @@
         </div>
       </div>
     </a>
+
+    <!--Complete button-->
+    <button
+      class="complete_button button"
+      (click)="onCompleteClick(task)">
+      <mat-icon
+        [ngClass]="{ complete: task.status === 'done' }"
+        class="material-symbols-outlined"
+        >check_box</mat-icon
+      >
+    </button>
+
+    <!--Delete button-->
+    <button
+      [matTooltip]="'Delete'"
+      [matTooltipPosition]="'above'"
+      class="delete_button button"
+      (click)="onDeleteClick(task.id)">
+      <mat-icon class="material-symbols-outlined">delete</mat-icon>
+    </button>
+
+    <!--Edit button-->
+    <button
+      [matTooltip]="'Edit'"
+      [matTooltipPosition]="'above'"
+      class="edit_button button"
+      (click)="onEditClick(task)">
+      <mat-icon class="material-symbols-outlined">edit</mat-icon>
+    </button>
   </div>
 }

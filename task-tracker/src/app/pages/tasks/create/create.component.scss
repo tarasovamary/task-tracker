@@ -1,0 +1,103 @@
+@import '../../../../styles/constants.scss';
+@import '../../../../styles/placeholders.scss';
+
+.wrapper {
+  padding: 25px;
+
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+
+    .button {
+      display: flex;
+      align-items: center;
+
+      padding: 9px 17px;
+
+      font-size: 1.6rem;
+      font-weight: 600;
+      background-color: $color-bg-button;
+
+      border-radius: 22px;
+      border: none;
+      cursor: pointer;
+      @extend %font-prim;
+      @extend %transition;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+    .cancel_button {
+      background-color: $color-overdue;
+      color: white;
+    }
+  }
+}
+
+.title {
+  margin: 0;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+  min-width: 500px;
+  width: 100%;
+  padding: 15px;
+
+  .title {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-select {
+    width: auto;
+  }
+
+  ::ng-deep .mat-mdc-select-arrow-wrapper {
+    display: none !important;
+  }
+}
+
+.status_button,
+.priority_button,
+.date_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border: 1px solid $color-border;
+  border-radius: 100%;
+  background-color: rgba(240, 245, 249, 0.8);
+  @extend %transition;
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(226, 235, 242);
+  }
+
+  .date_icon {
+    color: rgb(123, 43, 184);
+  }
+}
+
+::ng-deep .cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel {
+  min-width: 180px !important;
+}
+
+.option {
+  display: flex;
+}
+
+.datepicker {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.user_selector {
+  min-width: 172px;
+}

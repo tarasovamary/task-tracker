@@ -1,23 +1,26 @@
-import { NgFor } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AsyncPipe, NgFor } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { Subscription } from 'rxjs';
 import { ITask } from 'src/app/core/models/task.model';
-import { mockTasks } from 'src/app/mock/data';
+import { TaskService } from 'src/app/core/services/task.service';
+import { CreateComponent } from '../create/create.component';
 import { ItemComponent } from './item/item.component';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [ItemComponent, NgFor, MatIconModule, MatMenuModule, MatButtonModule],
+  imports: [ItemComponent, NgFor, MatIconModule, MatMenuModule, MatButtonModule, AsyncPipe],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListComponent {
-  tasks: ITask[] = mockTasks;
-  originalTasks: ITask[] = [...this.tasks];
+export class ListComponent implements OnInit, OnDestroy {
+  tasks!: ITask[];
+  originalTasks!: ITask[];
   filterStatus: string = 'reset';
 
   sortOrder: { [key: string]: 'asc' | 'desc' } = {
@@ -28,7 +31,28 @@ export class ListComponent {
   };
   currentSortField: string | null = null;
 
-  constructor() {}
+  private tasksSubscription: Subscription | undefined;
+
+  constructor(
+    private taskService: TaskService,
+    private cdr: ChangeDetectorRef,
+    private dialog: MatDialog,
+  ) {}
+
+  ngOnInit() {
+    this.tasksSubscription = this.taskService.tasks$.subscribe((tasks) => {
+      this.tasks = tasks;
+      this.originalTasks = [...this.tasks];
+
+      this.cdr.markForCheck();
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.tasksSubscription) {
+      this.tasksSubscription.unsubscribe();
+    }
+  }
 
   sortTasksBy(field: string): void {
     this.toggleSortOrder(field);
@@ -86,6 +110,24 @@ export class ListComponent {
       this.tasks = this.originalTasks.filter((task) => task.status !== 'done');
     } else if (status === 'reset') {
       this.tasks = this.originalTasks;
+    }
+  }
+
+  onDelete(id: string): void {
+    this.taskService.deleteTaskById(id);
+  }
+
+  onEdit(task: ITask): void {
+    this.dialog.open(CreateComponent, {
+      data: task,
+    });
+  }
+
+  onComplete(task: ITask): void {
+    if (task.status === 'done') {
+      this.taskService.updateTaskStatus(task.id, 'to_do');
+    } else {
+      this.taskService.updateTaskStatus(task.id, 'done');
     }
   }
 }

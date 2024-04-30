@@ -27,12 +27,22 @@
   flex-basis: 30%;
   border-left: none;
   justify-content: start;
-  padding-left: 12px;
+  padding-left: 32px;
   font-weight: 500;
 }
 
+.item_content {
+  .item_reporter {
+    justify-content: start;
+  }
+}
+
 .item {
+  position: relative;
+  display: flex;
+  align-items: center;
   a {
+    flex: 1;
     text-decoration: none;
     color: $color-text;
   }
@@ -78,4 +88,64 @@
 
 .overdue {
   color: $color-overdue;
+}
+
+.button {
+  position: absolute;
+  width: 33px;
+  height: 33px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: $color-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  @extend %transition;
+  &:hover {
+    border: none;
+    background: none;
+  }
+}
+
+.delete_button {
+  right: 20px;
+  &:hover {
+    color: $color-overdue;
+  }
+}
+
+.edit_button {
+  right: -4px;
+
+  &:hover {
+    color: $color-active;
+  }
+}
+
+.complete_button {
+  border: none;
+  background: none;
+  &:hover {
+    color: $color-complete;
+  }
+
+  .complete {
+    color: $color-complete;
+  }
+}
+
+.user_bage {
+  width: 24px;
+  height: 24px;
+  margin: 0 5px 0 15px;
+  background-color: $color-active;
+  border-radius: 100%;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject, filter, switchMap, takeUntil } from 'rxjs';
 import { ITask } from 'src/app/core/models/task.model';
-import { mockTasks } from 'src/app/mock/data';
+import { TaskService } from 'src/app/core/services/task.service';
 import { PriorityInfoPipe } from 'src/app/shared/pipes/priority-info.pipe';
 import { StatusInfoPipe } from 'src/app/shared/pipes/status-info.pipe';
 
@@ -22,7 +22,10 @@ export class DetailsComponent implements OnInit {
 
   private unsubscribeAll: Subject<any> = new Subject<any>();
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private taskService: TaskService,
+  ) {}
 
   ngOnInit(): void {
     this.routeId$ = this.activatedRoute.paramMap.pipe(switchMap((params) => params.getAll('id')));
@@ -41,7 +44,8 @@ export class DetailsComponent implements OnInit {
     if (!id) {
       return;
     }
-    const task = mockTasks.find((task) => task.id === id);
+
+    const task = this.taskService.getAllTasks().find((task) => task.id === id);
     this.task = task || null;
   }
 

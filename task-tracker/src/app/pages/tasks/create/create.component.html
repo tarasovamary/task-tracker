@@ -1,0 +1,165 @@
+<div class="wrapper">
+  @if (matData) {
+    <h3 class="title">Update task</h3>
+  } @else {
+    <h3 class="title">Create task</h3>
+  }
+
+  <!-- Task -->
+  <div
+    class="content"
+    [formGroup]="taskForm">
+    <!--Title-->
+    <mat-form-field
+      class="title"
+      [subscriptSizing]="'dynamic'">
+      <input
+        type="text"
+        matInput
+        formControlName="name"
+        [spellcheck]="false"
+        placeholder="Add title..." />
+    </mat-form-field>
+
+    <!--User Selector -->
+    <mat-form-field
+      class="user_selector"
+      [subscriptSizing]="'dynamic'">
+      <input
+        matInput
+        type="text"
+        [formControl]="reporterControl"
+        placeholder="Choose reporter..."
+        [matAutocomplete]="beta"
+        #input="matInput" />
+      <mat-autocomplete
+        #beta="matAutocomplete"
+        [panelWidth]="'auto'"
+        (optionSelected)="onSelect($event.option.value, 'reporter')">
+        @for (user of filteredReporters | async; track $index) {
+          <mat-option [value]="user.name">
+            <div class="text-xm">{{ user?.name }}</div>
+          </mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <!--Status-->
+    <mat-select
+      #matSelect
+      formControlName="status"
+      (selectionChange)="onSelect($event.value, 'status')">
+      <mat-select-trigger>
+        <button
+          class="status_button"
+          [matTooltip]="'Status'">
+          <mat-icon
+            class="material-symbols-outlined"
+            [ngStyle]="{ color: (this.taskForm.get('status')?.value | statusInfo)?.color }"
+            >{{ (this.taskForm.get('status')?.value | statusInfo)?.icon }}</mat-icon
+          >
+        </button>
+      </mat-select-trigger>
+      <mat-option
+        *ngFor="let setting of statusOptions"
+        [value]="setting.name">
+        <div class="option">
+          <mat-icon
+            class="material-symbols-outlined"
+            [ngStyle]="{ color: (setting.name | statusInfo)?.color }"
+            >{{ (setting.name | statusInfo)?.icon }}</mat-icon
+          >
+          <span class="">{{ setting.name | titlecase }}</span>
+        </div>
+      </mat-option>
+    </mat-select>
+
+    <!--Priority-->
+    <mat-select
+      #matSelect
+      formControlName="priority"
+      (selectionChange)="onSelect($event.value, 'priority')">
+      <mat-select-trigger>
+        <button
+          class="priority_button"
+          [matTooltip]="'Priority'">
+          <mat-icon
+            class="material-symbols-outlined"
+            [ngStyle]="{ color: (this.taskForm.get('priority')?.value | priorityInfo)?.color }"
+            >{{ (this.taskForm.get('priority')?.value | priorityInfo)?.icon }}</mat-icon
+          >
+        </button>
+      </mat-select-trigger>
+      <mat-option
+        *ngFor="let setting of priorityOptions"
+        [value]="setting.name">
+        <div class="option">
+          <mat-icon
+            class="material-symbols-outlined"
+            [ngStyle]="{ color: (setting.name | priorityInfo)?.color }"
+            >{{ (setting.name | priorityInfo)?.icon }}</mat-icon
+          >
+          <span class="">{{ setting.name | titlecase }}</span>
+        </div>
+      </mat-option>
+    </mat-select>
+
+    <div [style.position]="'relative'">
+      <button
+        class="date_button"
+        (click)="dueDatePicker.open(); $event.preventDefault()"
+        [matTooltip]="'Deadline'"
+        mat-icon-button>
+        <mat-icon class="date_icon material-symbols-outlined">calendar_month</mat-icon>
+      </button>
+
+      <!--Date Picker-->
+      <mat-form-field
+        [style.position]="'absolute'"
+        class="datepicker"
+        [subscriptSizing]="'dynamic'">
+        <input
+          matInput
+          [formControlName]="'deadline'"
+          [matDatepicker]="dueDatePicker"
+          [min]="minDate"
+          (dateInput)="setDueDate($event)" />
+
+        <mat-datepicker
+          #dueDatePicker
+          [xPosition]="'end'">
+          <mat-datepicker-actions>
+            <button
+              mat-button
+              matDatepickerCancel>
+              Clear
+            </button>
+            <button
+              mat-flat-button
+              [color]="'primary'"
+              matDatepickerApply>
+              Select
+            </button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!--Dialog buttons-->
+  <div
+    class="buttons"
+    mat-dialog-actions>
+    <button
+      class="button cancel_button"
+      (click)="onCancelClick()">
+      Cancel
+    </button>
+    <button
+      class="button"
+      (click)="onSubmit()"
+      [disabled]="!taskForm.valid">
+      Ok
+    </button>
+  </div>
+</div>
